@@ -3,42 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ez.cherri | Tutorial Media Player</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="logo-ez-cherry.svg" type="image/svg+xml">
+    
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Scripts -->
     <script src="script.js" defer></script>
 </head>
 
 <body>
- <header class="header">
-  <div class="left">
-    <button class="menu-btn">☰</button>
+    <!-- 1. HEADER SECTION -->
+<header class="header">
+    <div class="left">
+        <button class="menu-btn" aria-label="Menu">☰</button>
+        <div class="logo">
+        <img src="logo-ez-cherry.svg" alt="ez.cherri logo">
+        </div>
+        </div>
 
-    <div class="logo">
-      <img src="logo-ez-cherry.svg" alt="ez.cherri logo">
+        <div class="search">
+        <input type="text" placeholder="Find a tutorial..." aria-label="Search">
     </div>
-  </div>
-
-  <div class="search">
-    <input type="text" placeholder="Find a tutorial..." />
-  </div>
-
-  <div class="right">
-    <div class="cart">
-      🛒
-      <span class="badge">1</span>
-    </div>
-    <div class="avatar"></div>
-  </div>
 </header>
- 
-  <div class="video-container">
-    <video autoplay muted loop playsinline>
-      <source src="ezcherri-windmill-fan.mp4" type="video/mp4">
-    </video>
-  </div>
 
-  
-  
-  
+    <!-- CONTENT AREA -->
+    <main id="workspace">
+        <!-- Sticky Notes Stack Section -->
+        <div class="stack-card">
+            <p class="stack-title">Add your sticky notes here!</p>
+            <div class="sticky-stack" id="main-stack">
+                <div class="stk-layer layer-bg-2"></div>
+                <div class="stk-layer layer-bg-1"></div>
+                <div class="stk-layer layer-top"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="card-container">
+  <!-- Nút bấm ban đầu -->
+  <button id="show-script-btn" class="main-btn">See full scripts</button>
+
+  <!-- Vùng nội dung script ẩn -->
+  <div id="script-content" class="script-box hidden">
+    <div class="text-wrapper">
+      <p>Welcome to ez.cherri. Today, we are going to create a simple yet beautiful handmade project that captures the essence of summer.</p>
+      <p>First, prepare a square piece of paper with your favorite pattern. You will also need a small pin and a circular wooden stick for the handle.</p>
+      <p>"We begin by finding the center of the paper. Gently fold it along both diagonals to create guiding creases."</p>
+      <p>"Now, use your scissors to cut along the creases from the four corners toward the center. Be careful not to cut too close to the middle."</p>
+      <!-- Thêm nội dung dài hơn để test tính năng scroll -->
+      <p>Continue following the steps to complete your project...</p>
+    </div>
+    
+  </div>
+</div>
+
+  <div class="video-container">
+
+    <!-- CHỖ AME ĐANG LÀM VIDEO -->
+    <video id="myVideo" playsinline>
+        <source src="ezcherri-windmill-fan.mp4" type="video/mp4">
+    </video>
+
+    <!-- BIG CENTER PLAY -->
+    <div class="big-play" id="bigPlay"></div>
+
+    <!-- PREVIEW -->
+    <div class="preview-box" id="previewBox">
+        <video id="previewVideo" muted>
+            <source src="ezcherri-windmill-fan.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="video-controls">
+
+        <!-- PROGRESS -->
+        <div class="progress-container" id="progressContainer">
+
+            <div class="progress-filled" id="progressFilled"></div>
+
+        </div>
+
+        <!-- BOTTOM -->
+        <div class="bottom-row">
+
+            <!-- LEFT -->
+            <div class="left-controls">
+
+                <button id="playPauseBtn" class="control-btn">
+                    ▶
+                </button>
+
+               <div class="volume-wrapper">
+
+    <button id="muteBtn" class="control-btn">
+        🔊
+    </button>
+
+    <input 
+        type="range"
+        id="volumeSlider"
+        min="0"
+        max="1"
+        step="0.01"
+        value="1"
+    >
+
+</div>
+
+                <div class="time-box" id="timeBox">
+                    0:00 / 0:00
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="right-controls">
+
+                <input 
+                    type="range"
+                    id="volumeSlider"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="1"
+                >
+
+                <select id="speedControl">
+
+                    <option value="0.5">0.5x</option>
+                    <option value="1" selected>1x</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="2">2x</option>
+
+                </select>
+
+                <button id="fullscreenBtn">
+                    ⛶
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="decorative">
+
+    <img src="cherri-gal.svg" class="cherri-image" alt="">
+
+
+
+
 </body>
 </html>
