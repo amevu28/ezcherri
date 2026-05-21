@@ -1,3 +1,4 @@
+
 /**
  * STICKY NOTE INTERACTION MODULE
  * Feature: Drag-to-create, Drag-to-move, and Delete notes.
@@ -274,11 +275,11 @@ muteBtn.addEventListener('click', () => {
 
     if(video.muted){
 
-        muteBtn.innerHTML = '🔇';
+        muteBtn.innerHTML = '<img src="icon/mute-volume-button.svg" alt="Volume off" class="volume-icon" />';
 
     }else{
 
-        muteBtn.innerHTML = '🔊';
+        muteBtn.innerHTML = '<img src="icon/volume-button.svg" alt="Volume" class="volume-icon" />';
     }
 });
 
@@ -374,6 +375,123 @@ video.addEventListener('pause', () => {
 /* CLICK VIDEO TO PLAY / PAUSE */
 
 video.addEventListener('click', togglePlay);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const focusBtn = document.getElementById('focusModeBtn');
+  const videoContainer = document.querySelector('.video-container');
+  const overlay = document.getElementById('focusOverlay') || document.querySelector('.focus-overlay');
+
+  let focused = false;
+
+  if (!focusBtn || !videoContainer || !overlay) return;
+
+  focusBtn.addEventListener('click', () => {
+    focused ? exitFocus() : enterFocus();
+  });
+
+  // click overlay to close focus
+  overlay.addEventListener('click', () => {
+    if (focused) exitFocus();
+  });
+
+  /* LIKE SYSTEM */
+
+const likeBtn = document.getElementById('likeBtn');
+const likeCount = document.getElementById('likeCount');
+
+// khởi tạo từ nội dung hiện tại nếu có
+let likes = parseInt(likeCount?.textContent?.trim()) || 0;
+
+likeBtn.addEventListener('click', () => {
+  // tăng like mỗi lần nhấn
+  likes++;
+
+  // đảm bảo tồn tại thẻ ảnh (không ghi đè innerHTML)
+  let img = likeBtn.querySelector('.cherry-icon');
+  if (!img) {
+    img = document.createElement('img');
+    img.className = 'cherry-icon';
+    img.alt = 'Like';
+    img.src = 'icon/cherri-unfilled.svg';
+    likeBtn.insertBefore(img, likeBtn.firstChild);
+  }
+
+  // hiển thị icon filled khi đã like (tuỳ chọn)
+  img.src = 'icon/cherri-filled.svg';
+
+  // cập nhật số hiển thị
+  if (likeCount) likeCount.innerText = likes;
+});
+
+  // exit on escape or resize
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && focused) exitFocus();
+  });
+  window.addEventListener('resize', () => {
+    if (focused) exitFocus();
+  });
+
+  function enterFocus() {
+    const rect = videoContainer.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // scale to fit ~82% of viewport, but not larger than 1.6x
+    const scale = Math.min((vw * 0.82) / rect.width, (vh * 0.82) / rect.height, 1.6);
+
+    // distance to center of viewport
+    const dx = vw / 2 - (rect.left + rect.width / 2);
+    const dy = vh / 2 - (rect.top + rect.height / 2);
+
+    // pin element to current position using fixed layout so transform animates visually from current spot
+    Object.assign(videoContainer.style, {
+      position: 'fixed',
+      left: `${rect.left}px`,
+      top: `${rect.top}px`,
+      width: `${rect.width}px`,
+      height: `${rect.height}px`,
+      margin: '0',
+      transform: 'translate(0px, 0px) scale(1)',
+      transition: 'transform 420ms cubic-bezier(.2,.8,.2,1), box-shadow 420ms ease',
+      zIndex: '1000',
+      willChange: 'transform'
+    });
+
+    // show overlay + dim/blur
+    document.body.classList.add('focus-active');
+    focusBtn.setAttribute('aria-pressed', 'true');
+
+    // force reflow then apply transform to center + scale
+    void videoContainer.offsetWidth;
+    videoContainer.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
+
+    focused = true;
+  }
+
+  function exitFocus() {
+    // animate back to original pinned position (transform -> identity)
+    videoContainer.style.transform = 'translate(0px, 0px) scale(1)';
+
+    // after animation ends, remove all inline pinned styles so layout returns to normal flow
+    const onEnd = (e) => {
+      if (e.propertyName !== 'transform') return;
+      videoContainer.removeEventListener('transitionend', onEnd);
+
+      // remove inline styles applied during focus
+      [
+        'position', 'left', 'top', 'width', 'height',
+        'margin', 'transform', 'transition', 'zIndex', 'willChange'
+      ].forEach((k) => videoContainer.style.removeProperty(k));
+
+      document.body.classList.remove('focus-active');
+      focusBtn.setAttribute('aria-pressed', 'false');
+      focused = false;
+    };
+
+    videoContainer.addEventListener('transitionend', onEnd);
+  }
+});
+
 
 
 
