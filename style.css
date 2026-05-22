@@ -1,13 +1,12 @@
+/* ==========================================================================
+   FONTS & RESET SETUP
+   ========================================================================== */
 @font-face {
   font-family: "HelveticaLocal";
   src: url("fonts/Helvetica.ttf") format("truetype");
-  font-weight: 400; /* Hoặc 700 tùy thuộc vào file ttf này là bản Regular hay Bold */
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
-}
-/* Use the loaded font (falls back to system Helvetica / Arial) */
-body {
-  font-family: "HelveticaLocal", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 * {
@@ -17,192 +16,158 @@ body {
   font-family: "HelveticaLocal", sans-serif;
 }
 
-body {
-  /* Tìm đến selector quản lý phần nền của bạn (ví dụ: body, .canvas, .main-board) *
-    /* Màu nền xám trắng nhạt chuẩn UI whiteboard */
-    background-color: hwb(67 86% 1%); 
-    
-    /* Tạo chấm bi bằng gradient: màu chấm là #ccc0c0, kích thước chấm là 1.2px */
-    background-image: radial-gradient(rgb(0, 152, 76) 1.2px, transparent 1.6px);
-    
-    /* Khoảng cách giữa các hàng và cột chấm là 24px */
-    background-size: 24px 24px;
+:root {
+  --sticky-yellow: #FF76B1;
+  --sticky-shadow: #1fd00b;
 }
 
+body {
+  font-family: "HelveticaLocal", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: hwb(67 86% 1%); 
+  background-image: radial-gradient(rgb(0, 152, 76) 1.2px, transparent 1.6px);
+  background-size: 24px 24px;
+}
 
-/* HEADER */
-.header {
+/* ==========================================================================
+   GLOBAL HEADER & SEARCH LAYOUT
+   ========================================================================== */
+header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
 }
 
-/* LEFT */
-.left {
+.header-brand {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .menu-btn {
-  color: #2d8a57;
-  font-size: 22px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 40px;
   height: 40px;
-
+  border: none;
   border-radius: 8px;
+  background: transparent;
+  color: #2d8a57;
+  font-size: 22px;
+  cursor: pointer;
 }
 
-/* LOGO */
-.logo img {
-  height: 50px;
+.logo {
   display: block;
-
-
+  height: 50px;
 }
 
-.search {
+.search-bar {
   flex: 1;
-  max-width: 500px; /* giới hạn chiều dài */
+  max-width: 500px;
   margin: 0 20px;
 }
 
-.search input {
+.search-bar input {
   width: 100%;
-  padding: 8px;
-  border-radius: 20px;
+  padding: 8px 16px;
   border: 1px solid rgb(5, 168, 5);
+  border-radius: 20px;
   outline: none;
-  font-family: "HelveticaLocal", sans-serif;
 }
 
-/* RIGHT */
-.right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-/* 📱 RESPONSIVE */
-@media (max-width: 768px) {
-  .search {
-    display: none;
-  }
-
-  .logo img {
-    height: 30px;
-  }
-}
-:root {
-    --sticky-yellow: #FF76B1;
-    --sticky-shadow: #1fd00b;
-    
-}
-
-/* Reset */
-body {
-    margin: 0;
-    font-family: sans-serif;
-}
-
-
-
-/* Stack UI */
+/* ==========================================================================
+   STICKY NOTES / WORKSPACE SYSTEM
+   ========================================================================== */
 .stack-card {
-    position: absolute;
-    top: 110px;
-    left: 1230px;
-    text-align: center;
-    user-select: none;
+  position: absolute;
+  top: 110px;
+  left: 1230px;
+  text-align: center;
+  user-select: none;
 }
 
 .stack-title {
-    font-size: 12px;
-    margin-bottom: 10px;
-    color:#2d8a57
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: #2d8a57;
 }
 
 .sticky-stack {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    cursor: grab;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  cursor: grab;
 }
 
 .stk-layer {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: var(--sticky-yellow);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--sticky-yellow);
 }
 
 .layer-bg-2 {
-    transform: translate(6px, 6px);
-    background: var(--sticky-shadow);
+  transform: translate(6px, 6px);
+  background: var(--sticky-shadow);
 }
 
 .layer-bg-1 {
-    transform: translate(3px, 3px);
+  transform: translate(3px, 3px);
 }
 
 .layer-top {
-    z-index: 5;
-    border-bottom-right-radius: 15px 5px;
+  z-index: 5;
+  border-bottom-right-radius: 15px 5px;
 }
 
-/* Dropped Note */
 .sticky-note-dropped {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    background-color: var(--sticky-yellow);
-    padding: 10px;
-    box-shadow: 5px 5px 15px rgba(85, 195, 0, 0.845);
-    cursor: move;
-    z-index: 1000;
-    font-size: 16px;
-    border-bottom-right-radius: 20px 5px;
-    outline: none;
-    word-wrap: break-word;
-    
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background-color: var(--sticky-yellow);
+  padding: 10px;
+  box-shadow: 5px 5px 15px rgba(85, 195, 0, 0.845);
+  cursor: move;
+  z-index: 1000;
+  font-size: 16px;
+  border-bottom-right-radius: 20px 5px;
+  outline: none;
+  word-wrap: break-word;
 }
+
 .note-close {
-    position: absolute;
-    top: 1.5px;
-    right: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    user-select: none;
-    color:rgb(228, 255, 105)
+  position: absolute;
+  top: 1.5px;
+  right: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  color: rgb(228, 255, 105);
 }
 
 .note-close:hover {
-    opacity: 0.6;
+  opacity: 0.6;
 }
-.note-text {
-    width: 100%;        /* Chiếm hết chiều ngang của tờ note */
-    height: calc(100% - 20px); /* Trừ bớt khoảng trống phía trên của nút X */
-    margin-top: 10px;   /* Đẩy text xuống dưới một chút để không dính vào nút X */
-    
-    /* Các thuộc tính quan trọng khác */
-    outline: none;      /* Bỏ viền xanh khi click vào gõ */
-    word-wrap: break-word; /* Tự động xuống dòng khi chữ quá dài */
-    overflow-y: hidden;   /* Hiện thanh cuộn nếu người dùng gõ quá nhiều */
-    font-size: 13px;
-    line-height: 1.4;
-    text-align: left;
-    font-family: "HelveticaLocal", sans-serif;
-    }
 
+.note-text {
+  width: 100%;        
+  height: calc(100% - 20px); 
+  margin-top: 10px;   
+  outline: none;      
+  word-wrap: break-word; 
+  overflow-y: hidden;   
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+  padding-top: 20px;
+}
+
+/* ==========================================================================
+   TUTORIAL TEXT SIDEBAR / CARD
+   ========================================================================== */
 .card-container {
   width: 300px;
   height: 400px;
@@ -212,16 +177,14 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  position: relative;
   background-color: #fff;
   position: absolute;
-  right: 50px;  /* Cách mép phải 35px */
-  top: 65%;     /* Căn giữa theo chiều dọc (kết hợp với transform) */
+  right: 50px;  
+  top: 65%;     
   transform: translateY(-50%);
 }
 
-/* Style cho nút bấm */
-.main-btn {
+.script-button {
   background-color: #84cc8f;
   border: 1px solid #2a5401;
   border-radius: 15px;
@@ -229,22 +192,25 @@ body {
   font-size: 18px;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(213, 217, 0, 0.834);
-  transition: transform 0.2s;
-  color : #1c5100;
+  transition: transform 0.2s, box-shadow 0.2s;
+  color: rgb(21, 55, 2);
 }
 
-.main-btn:active {
-  transform: scale(0.95);
+.script-button:active {
+  transform: scale(0.95) translateY(-50%); /* Giữ nguyên trục y khi active */
 }
 
-/* Vùng chứa script */
+.script-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(213, 217, 0, 0.9);
+}
+
 .script-box {
   width: 100%;
   height: 100%;
   padding: 40px 20px;
-  background-color: #e8f5e9; /* Màu nền xanh nhạt như ảnh */
-  overflow-y: auto; /* Cho phép cuộn dọc */
-  box-sizing: border-box;
+  background-color: #e8f5e9; 
+  overflow-y: auto; 
 }
 
 .hidden {
@@ -252,13 +218,15 @@ body {
 }
 
 .text-wrapper p {
-  font-family: "HelveticaLocal", sans-serif;
-  line-height: 1.6;
+  line-height: 1.5; 
   margin-bottom: 20px;
   color: #264f02;
 }
 
-/* Tùy chỉnh thanh cuộn (scrollbar) cho giống ảnh */
+.text-wrapper p.step {
+  margin-bottom: 4px; 
+}
+
 .script-box::-webkit-scrollbar {
   width: 8px;
 }
@@ -272,332 +240,287 @@ body {
   border-radius: 10px;
   border: 1.5px solid #ffdced;
 }    
+
+/* ==========================================================================
+   CORE VIDEO PLAYER CONTAINER
+   ========================================================================== */
 .video-container {
-
-    width: 988px;
-    height: 557px;
-
-    margin-left: 80px;
-    margin-top: 70px;
-
-    border-radius: 27px;
-
-    overflow: hidden;
-    position: relative;
-
-    background: black;
+  width: 988px;
+  height: 557px;
+  margin-left: 80px;
+  margin-top: 70px;
+  border-radius: 27px;
+  overflow: hidden;
+  position: relative;
+  background: black;
+  z-index: 10;
+  transition: transform 420ms cubic-bezier(.2,.8,.2,1), box-shadow 420ms ease;
+  transform-origin: center center;
 }
-
-/* VIDEO */
 
 .video-container video {
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    cursor: pointer;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
 }
 
-
-
-/* BIG PLAY */
-
+/* --- BIG PLAY ENGINE --- */
 .big-play {
-
-    position: absolute;
-
-    top: 50%;
-    left: 50%;
-
-    transform: translate(-50%, -50%);
-
-    width: 90px;
-    height: 90px;
-
-    border-radius: 50%;
-
-    background: rgba(236, 75, 166, 0.741);
-
-    backdrop-filter: blur(10px);
-
-    cursor: pointer;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    transition: opacity 0.3s ease;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition: opacity 0.3s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(236, 75, 166, 0.741);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
-
-/* SHOW ONLY WHEN HOVER + PAUSED */
 
 .video-container:hover .big-play.show {
-
-    opacity: 1;
-
-    pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-    
-    
 .big-play::before {
-
-    content: '';
-
-    border-left: 28px solid white;
-    border-top: 18px solid transparent;
-    border-bottom: 18px solid transparent;
-
-    margin-left: 6px;
+  content: '';
+  border-left: 28px solid white;
+  border-top: 18px solid transparent;
+  border-bottom: 18px solid transparent;
+  margin-left: 6px;
 }
 
-
-
-/* CONTROLS */
-
+/* --- VIDEO CONTROLS DASHBOARD --- */
 .video-controls {
-
-    position: absolute;
-
-    bottom: 18px;
-    left: 0;
-
-    width: 100%;
-
-    padding: 0 28px;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 16px;
-
-    opacity: 0;
-
-    transition: opacity 0.35s ease;
-
-    pointer-events: none;
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  width: 100%;
+  padding: 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
 }
 
-/* PROGRESS */
+.video-container:hover .video-controls {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 .progress-container {
-
-    width: 100%;
-    height: 4px;
-
-    background: rgba(255,255,255,0.7);
-
-    border-radius: 999px;
-
-    position: relative;
-
-    cursor: pointer;
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
 }
 
 .progress-filled {
-
-    width: 0%;
-    height: 100%;
-
-    background: #ff5cb8;
-
-    border-radius: 999px;
-
-    position: relative;
-    
+  width: 0%;
+  height: 100%;
+  background: #ff5cb8;
+  border-radius: 999px;
+  position: relative;
 }
+
 .progress-filled::after {
-
-    content: '';
-
-    position: absolute;
-
-    right: -7px;
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    width: 14px;
-    height: 14px;
-
-    border-radius: 50%;
-
-    background: #ff5cb8;
-
-    transition: transform 0.1s ease;
+  content: '';
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ff5cb8;
 }
 
-/* PREVIEW */
-
+/* --- HOVER TIMELINE PREVIEW --- */
 .preview-box {
-
-    position: absolute;
-
-    width: 190px;
-    height: 110px;
-
-    background: #444;
-
-    border-radius: 24px;
-
-    overflow: hidden;
-
-    bottom: 80px;
-
-    left: 0;
-
-    display: none;
-
-    pointer-events: none;
-
-    z-index: 999;
+  position: absolute;
+  width: 190px;
+  height: 110px;
+  background: #444;
+  border-radius: 24px;
+  overflow: hidden;
+  bottom: 80px;
+  left: 0;
+  display: none;
+  pointer-events: none;
+  z-index: 999;
 }
 
 .preview-box video {
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* BOTTOM */
-
+/* --- TOOLBAR CONTROLS --- */
 .bottom-row {
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
-/* LEFT + RIGHT */
 
 .left-controls,
 .right-controls {
-
-    display: flex;
-    align-items: center;
-
-    gap: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
-
-/* BUTTONS */
 
 .control-btn,
 #fullscreenBtn {
-
-    background: none;
-
-    border: none;
-
-    color: white;
-
-    font-size: 22px;
-
-    cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
 }
-
-/* TIME */
 
 .time-box {
-
-    background: #b34581;
-
-    color: white;
-
-    padding: 8px 16px;
-
-    border-radius: 999px;
-
-    font-size: 15px;
-    font-family: "HelveticaLocal", sans-serif;
+  background: #b34581;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 15px;
 }
-
-/* RANGE */
-
-#volumeSlider {
-
-    width: 100px;
-
-    accent-color: #ff5cb8;
-}
-
-/* SPEED */
-
-#speedControl {
-
-    border: none;
-    outline: none;
-
-    background: #ff5cb8c3;
-
-    color: white;
-
-    padding: 8px 12px;
-
-    border-radius: 999px;
-
-    cursor: pointer;
-}
-/* SHOW CONTROLS ON HOVER */
-
-.video-container:hover .video-controls {
-
-    opacity: 1;
-
-    pointer-events: auto;
-}
-/* VOLUME */
 
 .volume-wrapper {
-
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    
+  display: flex;
+  align-items: center;
+  overflow: hidden;
 }
-
-/* SLIDER */
 
 #volumeSlider {
-
-    width: 0;
-
-    opacity: 0;
-
-    margin-left: 0;
-
-    transition:
-        width 0.3s ease,
-        opacity 0.3s ease,
-        margin-left 0.3s ease;
-
-    accent-color: #ff5cb8;
-
-    cursor: pointer;
+  width: 0;
+  opacity: 0;
+  margin-left: 0;
+  transition: width 0.3s ease, opacity 0.3s ease, margin-left 0.3s ease;
+  accent-color: #ff5cb8;
+  cursor: pointer;
 }
-
-/* HOVER EXPAND */
 
 .volume-wrapper:hover #volumeSlider {
-
-    width: 90px;
-
-    opacity: 1;
-
-    margin-left: 10px;
+  width: 90px;
+  opacity: 1;
+  margin-left: 10px;
 }
 
+#speedControl {
+  border: none;
+  outline: none;
+  background: #ff5cb8c3;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   LOWER ENGAGEMENT ACTIONS BAR
+   ========================================================================== */
+.video-actions {
+  width: 988px;
+  margin-left: 80px;
+  margin-top: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.focus-btn {
+  padding: 14px 20px;
+  border-radius: 10px;
+  border: 1px solid #56c545;
+  background: #F3FC6A;
+  cursor: pointer;
+  font-size: 15px;
+  color: #ff0090;
+  box-shadow: 0 5px 10px rgba(141, 214, 31, 0.813);
+  transition: transform 0.2s ease;
+}
+
+.focus-btn:hover {
+  transform: translateY(-2px);
+}
+
+.action-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: #F3FC6A;                 
+  border: 1px solid #2a5401;           
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(141, 214, 31, 0.813);
+  color: #116838;                      
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  font-size: 14px;                     
+}
+
+.icon-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 14px rgba(141, 214, 31, 0.9);
+}
+
+.icon-action img,
+.icon-action .download-button,
+.icon-action .cherry-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+  pointer-events: none; 
+}
+
+/* ==========================================================================
+   FOCUS AMBIENT OVERLAY ENGINE
+   ========================================================================== */
+.focus-active .video-container {
+  box-shadow: 0 40px 100px rgba(0,0,0,0.45);
+}
+
+.focus-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85); 
+  backdrop-filter: blur(20px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 900; 
+  pointer-events: none;
+}
+
+.focus-active .focus-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   MASCOT & DECORATIVE ANIMATIONS
+   ========================================================================== */
 .cherri-image {
   position: absolute;
   top: 700px;
@@ -605,131 +528,230 @@ body {
   width: 300px;
   height: auto;
 }
+.cherri-talk {
+  position: absolute;
+  top: 105%;
+  right: 248px;
+  width: 160px;
+  height: 160px;
 
+  filter: blur(2px);
+  transform: scale(0.95);
+  opacity: 0.6;
 
-
-.text-wrapper p {
-    line-height: 1.5; /* giữ khoảng cách xuống dòng */
+  transition: filter 0.25s ease,
+              transform 0.25s ease,
+              opacity 0.25s ease;
 }
 
-.text-wrapper p.step {
-    margin-bottom: 4px; /* giảm khoảng cách giữa các step */
+/* hover vào chính nó */
+.cherri-talk:hover {
+  filter: blur(0px);
+  transform: scale(1);
+  opacity: 1;
 }
 
-/* ACTIONS */
+.star {
+  position: absolute;
+  animation: starStopMotion 0.8s steps(2) infinite alternate;
+}
 
-.video-actions {
+.star-1 {
+  top: 110%;
+  right: 70px;
+  width: 70px;
+  height: 70px;
+  filter: drop-shadow(0 0 6px #ff00a2);
+}
 
-    width: 988px;
+.star-2 {
+  top: 130%;
+  right: 225px;
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0 0 6px #00ffb3);
+  animation-delay: 0.3s;
+}
 
-    margin-left: 80px;
-    margin-top: 35px;
+@keyframes starStopMotion {
+  0% {
+    transform: translateX(0px) translateY(0px) rotate(-6deg) scale(1);
+  }
+  50% {
+    transform: translateX(6px) translateY(-4px) rotate(6deg) scale(1.06);
+  }
+  100% {
+    transform: translateX(-4px) translateY(4px) rotate(-4deg) scale(0.96);
+  }
+}
 
+/* ==========================================================================
+   📱 RESPONSIVE SYSTEM
+   ========================================================================== */
+/* ==========================================================================
+   📱 HỆ THỐNG RESPONSIVE TOÀN DIỆN (MEDIA QUERIES)
+   ========================================================================== */
+/* 1. Dành cho màn hình Laptop nhỏ và Máy tính bảng (Dưới 1366px) */
+@media (max-width: 1366px) {
+  
+  /* Cấu trúc lại luồng hiển thị chính: Xếp dọc từ trên xuống dưới */
+  .workspace, main, body {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-}
+    width: 100%;
+  }
 
-/* FOCUS BUTTON */
+  /* VIDEO NẰM TRÊN CÙNG CHIẾM TRỌN CHIỀU NGANG ĐẸP MẮT */
+  .video-container {
+    margin: 30px auto 0 auto;
+    width: 90%;
+    max-width: 988px; /* Giữ độ rộng tối đa chuẩn của bạn */
+  }
 
-.focus-btn {
+  .video-actions {
+    margin: 15px auto 30px auto;
+    width: 90%;
+    max-width: 988px;
+  }
 
-    padding: 14px 20px;
-
-    border-radius: 10px;
-
-    border: 1px solid #56c545;
-
-    background: #F3FC6A;
-
-    cursor: pointer;
-
-    font-size: 15px;
-    color: #ff0090;
-
-    box-shadow: 0 5px 10px rgba(141, 214, 31, 0.813);
-
-    transition: 0.2s ease;
-}
-
-.focus-btn:hover {
-
-    transform: translateY(-2px);
-}
-
-/* ICON AREA */
-
-.action-icons {
-
+  /* TẠO KHUNG CHỨA PHÍA DƯỚI VIDEO ĐỂ CHIA THÀNH 2 CỘT LỚN 
+     (Nếu trong HTML chưa có khung chứa chung cho 3 phần tử này, ta tận dụng ngay lớp cha) */
+  .workspace {
     display: flex;
-    align-items: center;
+    flex-direction: row; /* Trải ngang thành 2 cột */
+    flex-wrap: wrap;    /* Cho phép rớt dòng khi xuống màn hình nhỏ hơn hẳn */
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;          /* Khoảng cách giữa cột trái và cột phải */
+    width: 90%;
+    margin: 0 auto;
+  }
 
-    gap: 20px;
-}
-
-/* ICON BUTTONS */
-
-.icon-action {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 10px;
-    background: #F3FC6A;                 /* giống focus-btn */
-    border: 1px solid #2a5401;           /* cùng tông viền */
-    border-radius: 12px;
-    box-shadow: 0 5px 10px rgba(141, 214, 31, 0.813);
-    color: #116838;                      /* chữ / icon color */
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
-    font-size: 14px;                     /* nếu có text */
-}
-
-/* Hover / active */
-.icon-action:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 14px rgba(141, 214, 31, 0.9);
-}
-
-/* Hình trong nút giữ kích thước hợp lý */
-.icon-action img,
-.icon-action .download-button,
-.icon-action .cherry-icon {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
+  /* ==========================================
+     CỘT TRÁI: MASCOT TRANG TRÍ (CHERRI IMAGE)
+     ========================================== */
+  .cherri-image {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
     display: block;
-    pointer-events: none; /* click vẫn do button/a xử lý */
+    margin: 20px 0;
+    flex: 1;            /* Tự động co giãn */
+    max-width: 300px;   /* Giới hạn kích thước mascot vừa phải */
+    text-align: center;
+  }
+
+  /* ==========================================
+     CỘT PHẢI: GOM CỤM NOTE VÀ SCRIPT (COLLAGE)
+     ========================================== */
+  /* Định hình khu vực bên phải chứa cả stack-card (Note) và card-container (Script) */
+  .stack-card, .card-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    transform: none;   /* Hủy bỏ mọi hiệu ứng dịch chuyển pixel cố định cũ */
+  }
+
+  /* Khối chứa kho Sticky Note */
+  .stack-card {
+    margin: 20px 0;
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Khối chứa kịch bản Script */
+  .card-container {
+    margin: 20px 0;
+    width: 100%;
+    max-width: 450px;
+  }
+
+  /* Ẩn bớt hiệu ứng ngôi sao ở màn hình nhỏ để tránh lỗi tràn khung */
+  .star {
+    display: none; 
+  }
 }
 
-.video-container {
-    transition: transform 420ms cubic-bezier(.2,.8,.2,1), box-shadow 420ms ease;
-    transform-origin: center center;
+/* 2. Dành cho màn hình Máy tính bảng và Điện thoại lớn (Dưới 768px) */
+@media (max-width: 768px) {
+  /* Ẩn thanh tìm kiếm trên Mobile theo ý định ban đầu trong code cũ của bạn */
+  .search-bar {
+    display: none;
+  }
+
+  header {
+    padding: 10px 15px;
+  }
+
+  .logo {
+    height: 35px;
+  }
+
+  /* Chuyển đổi tỷ lệ màn hình video thành tự động co dãn theo khung hình di động */
+  .video-container {
+    width: 95%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* Giữ nguyên tỷ lệ chuẩn 16:9 cinematic không lo bị bóp méo hình */
+    margin-top: 20px;
+    border-radius: 15px; /* Giảm bo góc một chút trên mobile cho cân đối */
+  }
+
+  /* Cụm tương tác thích ứng giao diện nhỏ */
+  .video-actions {
+    width: 95%;
+    margin-top: 15px;
+    flex-direction: column; /* Xếp chồng nút bấm theo chiều dọc trên điện thoại */
+    gap: 15px;
+  }
+
+  .focus-btn {
+    width: 100%; /* Nút Focus Mode chiếm toàn bộ chiều ngang để dễ bấm bằng tay */
+    text-align: center;
+  }
+
+  .action-icons {
+    width: 100%;
+    justify-content: space-between; /* Đẩy các icon tương tác ra 2 bên mép màn hình */
+  }
+
+  /* Thu nhỏ các nút điều khiển trình phát video để không bị đè lên nhau */
+  .video-controls {
+    padding: 0 15px;
+    gap: 10px;
+  }
+
+  .time-box {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .control-btn, #fullscreenBtn {
+    font-size: 18px;
+  }
+
+  #speedControl {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
 }
 
-/* Visual emphasis when focused */
-.focus-active .video-container {
-    box-shadow: 0 40px 100px rgba(0,0,0,0.45);
+/* 3. Dành cho điện thoại cực nhỏ (Dưới 480px) */
+@media (max-width: 480px) {
+  .left-controls {
+    gap: 8px;
+  }
+  
+  /* Ẩn thanh trượt âm lượng trên điện thoại quá nhỏ vì người dùng thường dùng phím cứng của máy */
+  #volumeSlider, .volume-wrapper:hover #volumeSlider {
+    display: none;
+    width: 0;
+  }
 }
-
-/* overlay already exists; ensure it covers full viewport and sits under focused video */
-.focus-overlay {
-    position: fixed;
-    inset: 0;
-    /* tăng độ tối ở đây */
-    background: rgba(0, 0, 0, 0.85); /* 0.85 = rất tối; giảm xuống 0.6 nếu muốn nhẹ hơn */
-    /* tăng blur nếu muốn mờ nền nhiều hơn */
-    backdrop-filter: blur(20px);
-    opacity: 0;
-    transition: opacity 0.35s ease;
-    z-index: 900; /* đảm bảo overlay nằm trên hầu hết phần tử */
-    pointer-events: none;
-}
-
-/* hiển thị khi focus */
-.focus-active .focus-overlay {
-    opacity: 1;
-    pointer-events: auto;}
-
-
-    

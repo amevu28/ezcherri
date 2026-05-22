@@ -5,28 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ez.cherri | Tutorial Media Player</title>
 
-    <!-- Head resources: favicon, stylesheet and deferred script -->
+    <!-- Global document dependencies -->
     <link rel="icon" href="logo-ez-cherry.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 
 <body>
-    <!-- Header: left menu + logo and search input -->
-    <header class="header">
-        <div class="left">
+
+    <!-- Main global navigation layout -->
+    <header>
+        <div class="header-brand">
             <button class="menu-btn" aria-label="Open menu">☰</button>
-            <div class="logo">
-                <img src="logo-ez-cherry.svg" alt="ez.cherri logo">
-            </div>
+            <img src="logo-ez-cherry.svg" alt="ez.cherri logo" class="logo">
         </div>
 
-        <div class="search">
-            <input type="text" placeholder="Find a tutorial..." aria-label="Search tutorials">
-        </div>
+        <form class="search-bar" role="search">
+            <input type="search" placeholder="Find a tutorial..." aria-label="Search tutorials">
+        </form>
     </header>
 
-    <!-- Main workspace: sticky notes area -->
+    <!-- Interactive Workspace Area -->
     <main id="workspace">
         <div class="stack-card">
             <p class="stack-title">Add your sticky notes here!</p>
@@ -38,9 +37,9 @@
         </div>
     </main>
 
-    <!-- Script card: toggle button + hidden script text -->
+    <!-- Collapsible Informational Sidebar/Card -->
     <div class="card-container">
-        <button id="show-script-btn" class="main-btn" aria-expanded="false">See full scripts</button>
+        <button id="show-script-btn" class="script-button" aria-expanded="false">See short script</button>
 
         <div id="script-content" class="script-box hidden" aria-hidden="true">
             <div class="text-wrapper">
@@ -52,9 +51,7 @@
                 </p>
 
                 <p class="process-title">WHAT YOU WILL NEED &lt;333 </p>
-
                 <p>
-
                     Foam sheets<br>
                     Scissors<br>
                     A ruler and pen<br>
@@ -64,7 +61,6 @@
                 </p>
 
                 <p class="process-title">THE BASIC STEP GUIDE</p>
-
                 <p class="step"><strong>1.</strong> Cut a 12.5 cm foam square.</p>
                 <p class="step"><strong>2.</strong> Fold diagonally both ways to find the center.</p>
                 <p class="step"><strong>3.</strong> Make a small hole in the center.</p>
@@ -75,17 +71,20 @@
                 <p class="step"><strong>8.</strong> Wrap a pipe cleaner around a paper straw.</p>
                 <p class="step"><strong>9.</strong> Add one foam washer, thread the windmill through, then add the second washer.</p>
                 <p class="step"><strong>10.</strong> Trim and curl the pipe cleaner end to secure everything.</p>
+                
                 <p class="process-title">YOU CAN DO IT &lt;333</p>
             </div>
         </div>
     </div>
 
-    <!-- Video container: main video, preview and controls -->
+    <!-- Core Media Application Engine -->
     <div class="video-container">
+        <!-- Native Video Element -->
         <video id="myVideo" playsinline>
             <source src="ezcherri-windmill-fan.mp4" type="video/mp4">
         </video>
 
+        <!-- Dynamic User Interface States -->
         <div class="big-play" id="bigPlay" aria-hidden="true"></div>
 
         <div class="preview-box" id="previewBox">
@@ -94,14 +93,15 @@
             </video>
         </div>
 
-        <!-- Video controls: progress bar, left (play/volume/time), right (speed/fullscreen) -->
+        <!-- Unified Playback Dashboard Controls -->
         <div class="video-controls">
+            <!-- Timeline Scrubbing System -->
             <div class="progress-container" id="progressContainer">
                 <div class="progress-filled" id="progressFilled"></div>
             </div>
 
+            <!-- Operational Control Toolbar -->
             <div class="bottom-row">
-                <!-- Left controls: play/pause, mute, volume slider, time display -->
                 <div class="left-controls">
                     <button id="playPauseBtn" class="control-btn" aria-pressed="false">▶</button>
 
@@ -115,9 +115,7 @@
                     <div class="time-box" id="timeBox">0:00 / 0:00</div>
                 </div>
 
-                <!-- Right controls: extra volume (kept), speed control, fullscreen -->
                 <div class="right-controls">
-                    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" aria-label="Volume (right)">
                     <select id="speedControl" aria-label="Playback speed">
                         <option value="0.5">0.5x</option>
                         <option value="1" selected>1x</option>
@@ -131,49 +129,34 @@
         </div>
     </div>
 
-    <!-- Decorative image at page end -->
-    <div class="decorative">
-        <img src="cherri-gal.svg" class="cherri-image" alt="Decorative illustration">
-    </div>
-
-
-
-    
+    <!-- External Video Engagement Bar -->
     <div class="video-actions">
-
-    <!-- FOCUS -->
-    <button id="focusModeBtn" class="focus-btn">
-        FOCUS MODE
-    </button>
-
-    <!-- download and like action -->
-    <div class="action-icons">
-
-        <!-- like -->
-        <button id="likeBtn" class="icon-action">
-
-            <img src="icon/cherri-unfilled.svg" alt="Like" class="cherry-icon" />
-            <span id="likeCount"> 0
-            </span>
-
+        <button id="focusModeBtn" class="focus-btn">
+            FOCUS MODE (•̀⤙•́ )
         </button>
 
-        <!-- download -->
-        <a 
-            href="ezcherri-windmill-fan.mp4"
-            download
-            class="icon-action"
-        >
-            <img src="icon/download-button.svg" alt="Download" class="download-button" />
-        </a>
+        <div class="action-icons">
+            <button id="likeBtn" class="icon-action">
+                <img src="icon/cherri-unfilled.svg" alt="Like" class="cherry-icon" />
+                <span id="likeCount">0</span>
+            </button>
 
+            <a href="ezcherri-windmill-fan.mp4" download class="icon-action">
+                <img src="icon/download-button.svg" alt="Download" class="download-button" />
+            </a>
+        </div>
     </div>
 
+    <!-- Ambient Focus Underlayment -->
     <div class="focus-overlay" id="focusOverlay"></div>
 
-
-    
-</div>
+    <!-- Aesthetic Branding & Mascot Visual anchors -->
+    <div class="decorative">
+        <img src="cherri-gal.svg" class="cherri-image" alt="Decorative illustration">
+        <img src="star-1.svg" class="star star-1" alt="">
+        <img src="star-1.svg" class="star star-2" alt="">
+        <img src="cherri-talk.svg" class="cherri-talk" alt="">
+    </div>
 
 </body>
 </html>
