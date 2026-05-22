@@ -166,14 +166,14 @@ if (btn && content) {
  * Plays or pauses the video and swaps the button symbols automatically
  */
 function togglePlay() {
-    // Tìm nhanh 2 thẻ ảnh nằm bên trong nút playPauseBtn
+   
     const playImg = playPauseBtn.querySelector('.play-icon');
     const resumeImg = playPauseBtn.querySelector('.stop-icon');
 
     if (video.paused) {
         video.play();
         
-        // Chỉ thay đổi thuộc tính hiển thị của ảnh chứ không xóa class hay cấu trúc
+   
         if (playImg) playImg.style.display = 'none';
         if (resumeImg) resumeImg.style.display = 'block';
         
@@ -181,7 +181,7 @@ function togglePlay() {
     } else {
         video.pause();
         
-        // Hiện lại icon Play, ẩn icon Resume đi
+        
         if (playImg) playImg.style.display = 'block';
         if (resumeImg) resumeImg.style.display = 'none';
         
@@ -189,12 +189,12 @@ function togglePlay() {
     }
 }
 
-// Giữ nguyên các sự kiện click
+
 playPauseBtn.addEventListener('click', togglePlay);
 bigPlay.addEventListener('click', togglePlay);
 video.addEventListener('click', togglePlay);
 
-// Tự động cập nhật để đồng bộ khi dùng phím tắt hoặc hệ thống bên ngoài
+
 video.addEventListener('play', () => {
     bigPlay.classList.remove('show');
     const playImg = playPauseBtn.querySelector('.play-icon');
