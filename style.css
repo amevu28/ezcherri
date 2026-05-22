@@ -848,11 +848,9 @@ header {
    RESPONSIVE SYSTEM
    ========================================================================== */
 
-
 /* ==========================================================================
-   SMALL LAPTOPS + TABLETS
+   SMALL LAPTOPS + TABLETS (Under 1366px)
    ========================================================================== */
-
 @media (max-width: 1366px) {
 
   .workspace,
@@ -864,100 +862,119 @@ header {
     width: 100%;
   }
 
+  /* Video player sizing for smaller laptops */
   .video-container {
     width: 90%;
     max-width: 988px;
-
     margin: 30px auto 0 auto;
   }
 
+  /* Action buttons area below the video */
   .video-actions {
     width: 90%;
     max-width: 988px;
-
     margin: 15px auto 30px auto;
   }
 
+  /* Layout container for interactive features */
   .workspace {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    justify-content: center;
-    align-items: flex-start;
-
-    gap: 40px;
-
-    width: 90%;
+    flex-direction: column; /* Force vertical stacking to prevent overlap issues */
+    align-items: center;
+    gap: 0; /* Reset default gap to rely safely on component margins */
+    width: 100%;
     margin: 0 auto;
   }
-
   
   .cherri-image {
     position: relative;
-
     top: auto;
     left: auto;
     right: auto;
-
     display: block;
-
-    flex: 1;
-    max-width: 300px;
-
+    max-width: 220px; 
     margin: 20px 0;
-
     text-align: center;
   }
 
-  /* reset absolute positioning for responsive layout */
+  /* Reset absolute positioning elements to avoid overlapping bugs */
   .note-stack-feature,
-  .script-container {
-    position: relative;
-
-    top: auto;
-    left: auto;
-    right: auto;
-    bottom: auto;
-
-    transform: none;
+  .script-container,
+  .stack-card,
+  .card-container {
+    position: relative !important; /* Force override any desktop absolute values */
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
   }
 
-  /* sticky note block */
+  /* Sticky note feature container (placed on top) */
   .stack-card {
     width: 100%;
-    max-width: 450px;
-
+    max-width: 340px; 
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    margin: 20px 0;
+    margin: 20px 0 0 0; 
   }
 
-  /* script block */
+  /* --- SCRIPT CONTAINER: DOWNSIZED AND PUSHED DOWN --- */
   .card-container {
     width: 100%;
-    max-width: 450px;
-
-    margin: 20px 0;
+    max-width: 280px;       /* Shrink width for a more compact box profile */
+    height: 240px;          /* Limit height to prevent vertical bloat */
+    display: flex;
+    flex-direction: column;
+    padding: 12px;          
+    box-sizing: border-box;
+    
+    /* Push the script container safely below the sticky notes stack */
+    margin: 40px auto 30px auto !important; 
   }
 
-  /* hide decorative stars on smaller screens to avoid overflow */
+  /* Script text wrapper inside the container */
+  #script-content,
+  .script-text-box {
+    flex: 1;
+    overflow-y: auto;       /* Activate smooth native scrollbar for lengthy text */
+    padding-right: 5px;     /* Small buffer to avoid scrollbar overlapping content */
+    font-size: 13px;        
+    line-height: 1.4;       
+  }
+
+  /* Clean up custom scrollbar styling inside script box */
+  #script-content::-webkit-scrollbar,
+  .script-text-box::-webkit-scrollbar {
+    width: 4px;
+  }
+  #script-content::-webkit-scrollbar-thumb,
+  .script-text-box::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+  }
+
+  /* Script typography adjustments */
+  .card-container h2, 
+  .card-container .script-title {
+    font-size: 14px;        
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
+
+  /* Hide decorative side elements to avoid horizontal scrolling issues */
   .star,
   .cherri-talk {
     display: none;
   }
 }
 
-
 /* ==========================================================================
-   TABLETS + LARGE PHONES
+   TABLETS + LARGE PHONES (Under 768px)
    ========================================================================== */
-
 @media (max-width: 768px) {
 
-  /* search bar hidden on mobile for cleaner UI */
   .search-bar {
     display: none;
   }
@@ -967,80 +984,87 @@ header {
   }
 
   .logo {
-    height: 35px;
+    height: 32px;
   }
 
-  /* responsive 16:9 player */
+  /* Responsive 16:9 aspect ratio video box for mobile displays */
   .video-container {
     width: 95%;
     max-width: 100%;
     height: auto;
-
     aspect-ratio: 16 / 9;
-
     margin-top: 20px;
-
-    border-radius: 15px;
+    border-radius: 12px;
   }
 
-  /* stack action buttons vertically */
+  /* Stack action buttons vertically to fit narrow screens */
   .video-actions {
     width: 95%;
-
     flex-direction: column;
-    gap: 15px;
-
+    gap: 12px;
     margin-top: 15px;
   }
 
-  /* easier tap target */
   .focus-btn {
     width: 100%;
     text-align: center;
   }
 
-  /* spread icons nicely */
   .action-icons {
     width: 100%;
     justify-content: space-between;
   }
 
-  /* smaller control dashboard */
+  /* Compact interface bar for mobile video playback */
   .video-controls {
-    padding: 0 15px;
-    gap: 10px;
+    padding: 0 12px;
+    gap: 8px;
   }
 
   .time-box {
-    padding: 6px 12px;
-    font-size: 12px;
+    padding: 5px 10px;
+    font-size: 11px;
   }
 
   .control-btn,
   #fullscreenBtn {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   #speedControl {
-    padding: 6px 10px;
-    font-size: 13px;
+    padding: 5px 8px;
+    font-size: 12px;
   }
 
+  /* Fine-tuning spacing on narrow viewport stacking */
+  .stack-card {
+    max-width: 85%;
+    margin: 15px auto 0 auto;
+  }
+
+  .card-container {
+    max-width: 80%;         
+    height: 220px;          
+    padding: 12px;          
+    margin: 35px auto 20px auto !important; /* Keep distinct separation on mobile */
+  }
+
+  #script-content,
+  .script-text-box {
+    font-size: 12px;        
+  }
 }
 
-
-
 /* ==========================================================================
-   EXTRA SMALL PHONES
+   EXTRA SMALL PHONES (Under 480px)
    ========================================================================== */
-
 @media (max-width: 480px) {
 
   .left-controls {
-    gap: 8px;
+    gap: 6px;
   }
 
-  /* remove volume slider because mobile users usually use hardware buttons */
+  /* Hide the slider bar entirely since mobile users use side hardware buttons */
   #volumeSlider,
   .volume-wrapper:hover #volumeSlider {
     display: none;
