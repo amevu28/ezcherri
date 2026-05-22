@@ -1,162 +1,399 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ez.cherri | Tutorial Media Player</title>
 
-    <!-- Global document dependencies -->
-    <link rel="icon" href="logo-ez-cherry.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ez.cherri | Tutorial Media Player</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 
 <body>
 
-    <!-- Main global navigation layout -->
-    <header>
-        <div class="header-brand">
-            <button class="menu-btn" aria-label="Open menu">☰</button>
-            <img src="logo-ez-cherry.svg" alt="ez.cherri logo" class="logo">
-        </div>
+  <!-- The header stays minimal because the main purpose of this page is watching tutorials.
+  I don’t want anything competing with the video so the layout starts clean with just the logo and search bar. -->
 
-        <form class="search-bar" role="search">
-            <input type="search" placeholder="Find a tutorial..." aria-label="Search tutorials">
-        </form>
-    </header>
+  <header>
 
-    <!-- Interactive Workspace Area -->
-    <main id="workspace">
-        <div class="stack-card">
-            <p class="stack-title">Add your sticky notes here!</p>
-            <div class="sticky-stack" id="main-stack">
-                <div class="stk-layer layer-bg-2"></div>
-                <div class="stk-layer layer-bg-1"></div>
-                <div class="stk-layer layer-top"></div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Collapsible Informational Sidebar/Card -->
-    <div class="card-container">
-        <button id="show-script-btn" class="script-button" aria-expanded="false">See short script</button>
-
-        <div id="script-content" class="script-box hidden" aria-hidden="true">
-            <div class="text-wrapper">
-                <p> 
-                    WELCOME TO CHERRI CRAFT!!<br>
-                    Today’s activity is making these really fun, handheld, toddler-safe windmills.
-                    They’re simple to make, don’t require many materials, and are a great little
-                    craft project to do together ~
-                </p>
-
-                <p class="process-title">WHAT YOU WILL NEED &lt;333 </p>
-                <p>
-                    Foam sheets<br>
-                    Scissors<br>
-                    A ruler and pen<br>
-                    Glue dots or glue stick<br>
-                    Paper straws<br>
-                    Pipe cleaners
-                </p>
-
-                <p class="process-title">THE BASIC STEP GUIDE</p>
-                <p class="step"><strong>1.</strong> Cut a 12.5 cm foam square.</p>
-                <p class="step"><strong>2.</strong> Fold diagonally both ways to find the center.</p>
-                <p class="step"><strong>3.</strong> Make a small hole in the center.</p>
-                <p class="step"><strong>4.</strong> Cut slits halfway from each corner toward the middle.</p>
-                <p class="step"><strong>5.</strong> Add holes on every other corner.</p>
-                <p class="step"><strong>6.</strong> Fold the corners with holes into the center and glue them down.</p>
-                <p class="step"><strong>7.</strong> Cut two small foam circles with center holes to use as washers.</p>
-                <p class="step"><strong>8.</strong> Wrap a pipe cleaner around a paper straw.</p>
-                <p class="step"><strong>9.</strong> Add one foam washer, thread the windmill through, then add the second washer.</p>
-                <p class="step"><strong>10.</strong> Trim and curl the pipe cleaner end to secure everything.</p>
-                
-                <p class="process-title">YOU CAN DO IT &lt;333</p>
-            </div>
-        </div>
+    <div class="header-brand">
+      <img src="assets/logo-ez-cherry.svg" alt="ez.cherri logo" class="logo">
     </div>
 
-    <!-- Core Media Application Engine -->
-    <div class="video-container">
-        <!-- Native Video Element -->
-        <video id="myVideo" playsinline>
-            <source src="ezcherri-windmill-fan.mp4" type="video/mp4">
-        </video>
+    <form class="search-bar" role="search">
+      <input
+        type="search"
+        placeholder="Find a tutorial with cherri..."
+        aria-label="Search tutorials"
+      >
+    </form>
 
-        <!-- Dynamic User Interface States -->
-        <div class="big-play" id="bigPlay" aria-hidden="true"></div>
+  </header>
 
-        <div class="preview-box" id="previewBox">
-            <video id="previewVideo" muted>
-                <source src="ezcherri-windmill-fan.mp4" type="video/mp4">
-            </video>
-        </div>
 
-        <!-- Unified Playback Dashboard Controls -->
-        <div class="video-controls">
-            <!-- Timeline Scrubbing System -->
-            <div class="progress-container" id="progressContainer">
-                <div class="progress-filled" id="progressFilled"></div>
-            </div>
 
-            <!-- Operational Control Toolbar -->
-            <div class="bottom-row">
-                <div class="left-controls">
-                    <button id="playPauseBtn" class="control-btn" aria-pressed="false">▶</button>
+  <main id="workspace">
 
-                    <div class="volume-wrapper">
-                        <button id="muteBtn" class="control-btn" aria-pressed="false">
-                            <img src="icon/volume-button.svg" alt="Volume" class="volume-icon" />
-                        </button>
-                        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
-                    </div>
+    <div class="note-stack-feature">
 
-                    <div class="time-box" id="timeBox">0:00 / 0:00</div>
-                </div>
+      <!-- This feature lets users place sticky notes anywhere around the workspace while watching the tutorial.
+      I made this because people often have quick thoughts, reminders, or ideas while learning,
+      and opening another app or writing on paper breaks the flow.
 
-                <div class="right-controls">
-                    <select id="speedControl" aria-label="Playback speed">
-                        <option value="0.5">0.5x</option>
-                        <option value="1" selected>1x</option>
-                        <option value="1.5">1.5x</option>
-                        <option value="2">2x</option>
-                    </select>
+      The goal is to keep thinking and watching in the same space so the experience feels uninterrupted.
+      This idea was inspired by tools like Miro, where users can freely organise thoughts visually around their workspace. -->
 
-                    <button id="fullscreenBtn" aria-label="Toggle fullscreen">⛶</button>
-                </div>
-            </div>
-        </div>
+      <p class="stack-title">
+        Add your sticky notes here!
+      </p>
+
+      <!-- I layered multiple note elements here to make the stack
+      feel more physical and interactive instead of completely flat. -->
+
+      <div class="sticky-stack" id="main-stack">
+        <div class="stk-layer layer-bg-2"></div>
+        <div class="stk-layer layer-bg-1"></div>
+        <div class="stk-layer layer-top"></div>
+      </div>
+
     </div>
 
-    <!-- External Video Engagement Bar -->
-    <div class="video-actions">
-        <button id="focusModeBtn" class="focus-btn">
-            FOCUS MODE (•̀⤙•́ )
-        </button>
+  </main>
 
-        <div class="action-icons">
-            <button id="likeBtn" class="icon-action">
-                <img src="icon/cherri-unfilled.svg" alt="Like" class="cherry-icon" />
-                <span id="likeCount">0</span>
+
+
+  <!-- I added this script panel because users can easily lose track of steps during tutorials.
+  Instead of constantly pausing or rewinding the video,
+  they can quickly glance at the important instructions here. -->
+
+  <div class="script-container">
+
+    <button
+      id="show-script-btn"
+      class="script-button"
+      aria-expanded="false"
+    >
+      See short script
+    </button>
+
+
+
+    <!-- Hidden by default so the interface stays focused on the video
+    unless the user needs extra support. -->
+
+    <div
+      id="script-content"
+      class="script-box hidden"
+      aria-hidden="true"
+    >
+
+      <div class="text-wrapper">
+
+        <p>
+          WELCOME TO CHERRI CRAFT!!<br>
+          This short guide follows the same sequence as the tutorial video.
+        </p>
+
+
+
+        <p class="process-title">
+          WHAT YOU WILL NEED &lt;333
+        </p>
+
+        <!-- I kept the material list simple and separated
+        for quick scanning while watching. -->
+
+        <p>
+          Foam sheets<br>
+          Scissors<br>
+          A ruler and pen<br>
+          Glue dots or glue stick<br>
+          Paper straws<br>
+          Pipe cleaners
+        </p>
+
+
+
+        <p class="process-title">
+          THE BASIC STEP GUIDE
+        </p>
+
+        <!-- The steps follow the exact same order as the tutorial video
+        so users can follow along without getting lost. -->
+
+        <p class="step"><strong>1.</strong> Cut a 12.5 cm foam square.</p>
+        <p class="step"><strong>2.</strong> Fold it diagonally to find the center point.</p>
+        <p class="step"><strong>3.</strong> Make a small hole in the middle.</p>
+        <p class="step"><strong>4.</strong> Cut slits from each corner toward the center.</p>
+        <p class="step"><strong>5.</strong> Add holes on alternating corners for folding.</p>
+        <p class="step"><strong>6.</strong> Fold corners into the center and secure with glue.</p>
+        <p class="step"><strong>7.</strong> Add foam washers to help it spin smoothly.</p>
+        <p class="step"><strong>8.</strong> Wrap pipe cleaner around straw for structure.</p>
+        <p class="step"><strong>9.</strong> Stack everything in order so it rotates properly.</p>
+        <p class="step"><strong>10.</strong> Lock everything in place so it doesn’t come apart.</p>
+
+
+
+        <p class="process-title">
+          YOU CAN DO IT &lt;333
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- The video player is the main focus of the whole page,
+  so most supporting features are designed around this section. -->
+
+  <div class="video-container">
+
+    <!-- playsinline keeps the video inside the custom interface
+    instead of forcing fullscreen on mobile devices. -->
+
+    <video id="myVideo" playsinline>
+      <source src="ezcherri-windmill-fan.mp4" type="video/mp4">
+    </video>
+
+
+
+    <!-- I made the play button larger so it feels easier and more inviting to press,
+    especially on smaller screens. -->
+
+    <div
+      class="big-play"
+      id="bigPlay"
+      aria-hidden="true"
+    ></div>
+
+
+
+    <!-- This preview box helps users scrub through the timeline
+    more confidently before jumping to another section. -->
+
+    <div class="preview-box" id="previewBox">
+
+      <video id="previewVideo" muted>
+        <source src="ezcherri-windmill-fan.mp4" type="video/mp4">
+      </video>
+
+    </div>
+
+
+
+    <!-- I used custom controls instead of browser defaults
+    so the player feels visually consistent with the rest of the interface. -->
+
+    <div class="video-controls">
+
+      <!-- Separating the progress track and fill
+      makes timeline updates easier to control with JavaScript. -->
+
+      <div
+        class="progress-container"
+        id="progressContainer"
+      >
+        <div
+          class="progress-filled"
+          id="progressFilled"
+        ></div>
+      </div>
+
+
+
+      <div class="bottom-row">
+
+        <div class="left-controls">
+
+          <button
+            id="playPauseBtn"
+            class="control-btn"
+            aria-pressed="false"
+          >
+            ▶
+          </button>
+
+
+
+          <!-- I grouped volume and mute together
+          so all sound controls stay in one compact area. -->
+
+          <div class="volume-wrapper">
+
+            <button
+              id="muteBtn"
+              class="control-btn"
+              aria-pressed="false"
+            >
+              <img
+                src="icon/volume-button.svg"
+                alt="Volume"
+                class="volume-icon"
+              >
             </button>
 
-            <a href="ezcherri-windmill-fan.mp4" download class="icon-action">
-                <img src="icon/download-button.svg" alt="Download" class="download-button" />
-            </a>
+            <input
+              type="range"
+              id="volumeSlider"
+              min="0"
+              max="1"
+              step="0.01"
+              aria-label="Volume"
+            >
+
+          </div>
+
+
+
+          <!-- Time display helps users keep track of progress
+          during longer tutorials. -->
+
+          <div class="time-box" id="timeBox">
+            0:00 / 0:00
+          </div>
+
         </div>
+
+
+
+        <div class="right-controls">
+
+          <!-- Playback speed gives users more control
+          over their own learning pace. -->
+
+          <select
+            id="speedControl"
+            aria-label="Playback speed"
+          >
+            <option value="0.5">0.5x</option>
+            <option value="1" selected>1x</option>
+            <option value="1.5">1.5x</option>
+            <option value="2">2x</option>
+          </select>
+
+
+
+          <!-- Fullscreen mode creates a more immersive viewing experience. -->
+
+          <button
+            id="fullscreenBtn"
+            aria-label="Toggle fullscreen"
+          >
+            ⛶
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- Ambient Focus Underlayment -->
-    <div class="focus-overlay" id="focusOverlay"></div>
+  </div>
 
-    <!-- Aesthetic Branding & Mascot Visual anchors -->
-    <div class="decorative">
-        <img src="cherri-gal.svg" class="cherri-image" alt="Decorative illustration">
-        <img src="star-1.svg" class="star star-1" alt="">
-        <img src="star-1.svg" class="star star-2" alt="">
-        <img src="cherri-talk.svg" class="cherri-talk" alt="">
+
+
+  <!-- I separated these actions from the main controls
+  so they don’t distract from the learning experience itself. -->
+
+  <div class="video-actions">
+
+    <!-- Focus mode dims surrounding UI elements
+    to help users stay concentrated on the tutorial. -->
+
+    <button id="focusModeBtn" class="focus-btn">
+      FOCUS MODE (•̀⤙•́ )
+    </button>
+
+
+
+    <div class="action-icons">
+
+      <!-- Lightweight interaction for engagement
+      without interrupting playback. -->
+
+      <button id="likeBtn" class="icon-action">
+
+        <img
+          src="icon/cherri-unfilled.svg"
+          alt="Like"
+          class="cherry-icon"
+        >
+
+        <span id="likeCount">
+          0
+        </span>
+
+      </button>
+
+
+
+      <!-- Native download allows quick offline access
+      without extra interaction steps. -->
+
+      <a
+        href="ezcherri-windmill-fan.mp4"
+        download
+        class="icon-action"
+      >
+        <img
+          src="icon/download-button.svg"
+          alt="Download"
+          class="download-button"
+        >
+      </a>
+
     </div>
+
+  </div>
+
+
+
+  <!-- This overlay is mainly used during focus mode
+  to darken everything outside the main video area. -->
+
+  <div
+    class="focus-overlay"
+    id="focusOverlay"
+  ></div>
+
+
+
+  <!-- Decorative assets are separated from functional UI
+  so they add personality without affecting usability. -->
+
+  <div class="decorative">
+
+    <img
+      src="assets/cherri-gal.svg"
+      class="cherri-image"
+      alt="Decorative illustration"
+    >
+
+    <img
+      src="assets/star-1.svg"
+      class="star star-1"
+      alt=""
+    >
+
+    <img
+      src="assets/star-1.svg"
+      class="star star-2"
+      alt=""
+    >
+
+    <img
+      src="assets/cherri-talk.svg"
+      class="cherri-talk"
+      alt=""
+    >
+
+  </div>
 
 </body>
+
 </html>

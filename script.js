@@ -18,7 +18,6 @@ const mainStack = document.getElementById('main-stack');
 const workspace = document.getElementById('workspace');
 const btn = document.getElementById('show-script-btn');
 const content = document.getElementById('script-content');
-
 const videoContainer = document.querySelector('.video-container');
 const video = document.getElementById('myVideo');
 const playPauseBtn = document.getElementById('playPauseBtn');

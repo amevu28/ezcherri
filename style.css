@@ -1,6 +1,7 @@
 /* ==========================================================================
-   FONTS & RESET SETUP
+   🎨 FONT SYSTEM + GLOBAL RESET
    ========================================================================== */
+/* i used a local Helvetica font so the whole interface keeps the same visual personality, also Helvetica is a sans serif font so it is very readable */
 @font-face {
   font-family: "HelveticaLocal";
   src: url("fonts/Helvetica.ttf") format("truetype");
@@ -16,21 +17,31 @@
   font-family: "HelveticaLocal", sans-serif;
 }
 
+/* colors for sticky notes */
 :root {
-  --sticky-yellow: #FF76B1;
-  --sticky-shadow: #1fd00b;
+  --sticky-pink: #FF76B1;
+  --sticky-shadow: #60d253;
 }
 
+/* dotted notebook-like background to make the page feel playful and creative, i took inspiration from FigJam interface.
+   to me, this type of background really promotes that this is the space where you not only watch a tutorial but also feel inspired to create.
+
+   technically, this effect is achieved using a single-layer radial-gradient that acts as a repeating dot pattern.
+   instead of using an image asset, i used CSS-generated pixels to ensure scalability, fast loading, and crisp rendering on all resolutions.
+   i learn and experiment from this open source: https://dev.to/clairecodes/how-to-create-a-polka-dot-background-with-css-23m0
+   */
 body {
   font-family: "HelveticaLocal", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: hwb(67 86% 1%); 
+  background-color: hwb(67 86% 1%);
   background-image: radial-gradient(rgb(0, 152, 76) 1.2px, transparent 1.6px);
   background-size: 24px 24px;
 }
 
+
 /* ==========================================================================
-   GLOBAL HEADER & SEARCH LAYOUT
+   HEADER
    ========================================================================== */
+
 header {
   display: flex;
   align-items: center;
@@ -38,31 +49,20 @@ header {
   padding: 10px 20px;
 }
 
+/* branding section */
 .header-brand {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.menu-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-  color: #2d8a57;
-  font-size: 22px;
-  cursor: pointer;
-}
-
+/* project logo */
 .logo {
   display: block;
   height: 50px;
 }
 
+/* search bar */
 .search-bar {
   flex: 1;
   max-width: 500px;
@@ -77,10 +77,13 @@ header {
   outline: none;
 }
 
+
 /* ==========================================================================
-   STICKY NOTES / WORKSPACE SYSTEM
+   📝 STICKY NOTE WORKSPACE SYSTEM
    ========================================================================== */
-.stack-card {
+
+/* draggable sticky-note source stack */
+.note-stack-feature {
   position: absolute;
   top: 110px;
   left: 1230px;
@@ -88,12 +91,14 @@ header {
   user-select: none;
 }
 
+/* tiny helper title above sticky stack */
 .stack-title {
   font-size: 12px;
   margin-bottom: 10px;
   color: #2d8a57;
 }
 
+/* visual stacked paper effect */
 .sticky-stack {
   position: relative;
   width: 150px;
@@ -101,132 +106,183 @@ header {
   cursor: grab;
 }
 
+/* base sticky note layer */
 .stk-layer {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: var(--sticky-yellow);
+  background-color: var(--sticky-pink);
 }
 
+/* fake depth layer */
 .layer-bg-2 {
   transform: translate(6px, 6px);
   background: var(--sticky-shadow);
 }
 
+/* middle layer */
 .layer-bg-1 {
   transform: translate(3px, 3px);
 }
 
+/* top visible layer */
 .layer-top {
   z-index: 5;
   border-bottom-right-radius: 15px 5px;
 }
 
+/* actual generated sticky note after drag/drop */
 .sticky-note-dropped {
   position: absolute;
   width: 150px;
   height: 150px;
-  background-color: var(--sticky-yellow);
   padding: 10px;
+
+  background-color: var(--sticky-pink);
+
+  border-bottom-right-radius: 20px 5px;
+
   box-shadow: 5px 5px 15px rgba(85, 195, 0, 0.845);
+
   cursor: move;
   z-index: 1000;
-  font-size: 16px;
-  border-bottom-right-radius: 20px 5px;
+
   outline: none;
+
   word-wrap: break-word;
+
+  font-size: 16px;
 }
 
+/* close/delete button */
 .note-close {
   position: absolute;
   top: 1.5px;
   right: 8px;
+
   font-size: 14px;
   font-weight: bold;
+
+  color: rgb(228, 255, 105);
+
   cursor: pointer;
   user-select: none;
-  color: rgb(228, 255, 105);
 }
 
+/* subtle hover feedback */
 .note-close:hover {
   opacity: 0.6;
 }
 
+/* editable content area */
 .note-text {
-  width: 100%;        
-  height: calc(100% - 20px); 
-  margin-top: 10px;   
-  outline: none;      
-  word-wrap: break-word; 
-  overflow-y: hidden;   
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: left;
+  width: 100%;
+  height: calc(100% - 20px);
+
+  margin-top: 10px;
   padding-top: 20px;
+
+  overflow-y: hidden;
+
+  outline: none;
+
+  text-align: left;
+  line-height: 1.4;
+  font-size: 13px;
+
+  word-wrap: break-word;
 }
 
+
 /* ==========================================================================
-   TUTORIAL TEXT SIDEBAR / CARD
+   SCRIPT FEATURE
    ========================================================================== */
-.card-container {
+
+/* tutorial explanation card */
+.script-container {
+  position: absolute;
+  top: 65%;
+  right: 50px;
+
+  transform: translateY(-50%);
+
   width: 300px;
   height: 400px;
-  border: 1px solid #71bb7c;
-  border-radius: 40px;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   overflow: hidden;
+
+  border: 1px solid #71bb7c;
+  border-radius: 40px;
+
   background-color: #fff;
-  position: absolute;
-  right: 50px;  
-  top: 65%;     
-  transform: translateY(-50%);
 }
 
+/* open-script button */
 .script-button {
+  padding: 15px 30px;
+
   background-color: #84cc8f;
+  color: rgb(21, 55, 2);
+
   border: 1px solid #2a5401;
   border-radius: 15px;
-  padding: 15px 30px;
+
   font-size: 18px;
+
   cursor: pointer;
+
   box-shadow: 0 4px 6px rgba(213, 217, 0, 0.834);
-  transition: transform 0.2s, box-shadow 0.2s;
-  color: rgb(21, 55, 2);
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
+/* pressed state */
 .script-button:active {
-  transform: scale(0.95) translateY(-50%); /* Giữ nguyên trục y khi active */
+  transform: scale(0.95) translateY(-50%);
 }
 
+/* hover feedback */
 .script-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(213, 217, 0, 0.9);
 }
 
+/* actual scrollable text area */
 .script-box {
   width: 100%;
   height: 100%;
   padding: 40px 20px;
-  background-color: #e8f5e9; 
-  overflow-y: auto; 
+
+  overflow-y: auto;
+
+  background-color: #e8f5e9;
 }
 
+/* hidden utility class */
 .hidden {
   display: none;
 }
 
+/* paragraph styling */
 .text-wrapper p {
-  line-height: 1.5; 
   margin-bottom: 20px;
+
+  line-height: 1.5;
   color: #264f02;
 }
 
+/* smaller spacing for tutorial steps */
 .text-wrapper p.step {
-  margin-bottom: 4px; 
+  margin-bottom: 4px;
 }
 
+/* custom scrollbar */
 .script-box::-webkit-scrollbar {
   width: 8px;
 }
@@ -239,142 +295,215 @@ header {
   background: #4caf50;
   border-radius: 10px;
   border: 1.5px solid #ffdced;
-}    
-
-/* ==========================================================================
-   CORE VIDEO PLAYER CONTAINER
-   ========================================================================== */
-.video-container {
-  width: 988px;
-  height: 557px;
-  margin-left: 80px;
-  margin-top: 70px;
-  border-radius: 27px;
-  overflow: hidden;
-  position: relative;
-  background: black;
-  z-index: 10;
-  transition: transform 420ms cubic-bezier(.2,.8,.2,1), box-shadow 420ms ease;
-  transform-origin: center center;
 }
 
+
+/* ==========================================================================
+   🎬 MAIN VIDEO PLAYER
+   ========================================================================== */
+
+/* video shell */
+.video-container {
+  position: relative;
+  z-index: 10;
+
+  width: 988px;
+  height: 557px;
+
+  margin-top: 70px;
+  margin-left: 80px;
+
+  overflow: hidden;
+
+  border-radius: 27px;
+
+  background: black;
+
+  transform-origin: center center;
+
+  transition:
+    transform 420ms cubic-bezier(.2,.8,.2,1),
+    box-shadow 420ms ease;
+}
+
+/* actual video */
 .video-container video {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+
   cursor: pointer;
 }
 
-/* --- BIG PLAY ENGINE --- */
+
+/* ==========================================================================
+   ▶ BIG PLAY BUTTON
+   ========================================================================== */
+
 .big-play {
   position: absolute;
   top: 50%;
   left: 50%;
+
   transform: translate(-50%, -50%);
+
   width: 90px;
   height: 90px;
-  border-radius: 50%;
-  background: rgba(236, 75, 166, 0.741);
-  backdrop-filter: blur(10px);
-  cursor: pointer;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  border-radius: 50%;
+
+  background: rgba(236, 75, 166, 0.741);
+  backdrop-filter: blur(10px);
+
   opacity: 0;
   pointer-events: none;
+
+  cursor: pointer;
+
   transition: opacity 0.3s ease;
 }
 
+/* only show on hover */
 .video-container:hover .big-play.show {
   opacity: 1;
   pointer-events: auto;
 }
 
+/* triangle play icon */
 .big-play::before {
   content: '';
+
+  margin-left: 6px;
+
   border-left: 28px solid white;
   border-top: 18px solid transparent;
   border-bottom: 18px solid transparent;
-  margin-left: 6px;
 }
 
-/* --- VIDEO CONTROLS DASHBOARD --- */
+
+/* ==========================================================================
+   VIDEO CONTROL PANEL
+   ========================================================================== */
+
 .video-controls {
   position: absolute;
   bottom: 18px;
   left: 0;
+
   width: 100%;
   padding: 0 28px;
+
   display: flex;
   flex-direction: column;
-  gap: 16px;
+
   opacity: 0;
-  transition: opacity 0.35s ease;
   pointer-events: none;
+
+  transition: opacity 0.35s ease;
 }
 
+/* controls appear when hovering video */
 .video-container:hover .video-controls {
   opacity: 1;
   pointer-events: auto;
 }
 
+/* progress bar shell */
 .progress-container {
+  position: relative;
+
   width: 100%;
   height: 4px;
-  background: rgba(255,255,255,0.7);
+
   border-radius: 999px;
-  position: relative;
+
+  background: rgba(255,255,255,0.7);
+
   cursor: pointer;
 }
 
+/* played section */
 .progress-filled {
+  position: relative;
+
   width: 0%;
   height: 100%;
-  background: #ff5cb8;
+
   border-radius: 999px;
-  position: relative;
+
+  background: #ff5cb8;
 }
 
+/* draggable progress knob */
 .progress-filled::after {
   content: '';
+
   position: absolute;
-  right: -7px;
   top: 50%;
+  right: -7px;
+
   transform: translateY(-50%);
+
   width: 14px;
   height: 14px;
+
   border-radius: 50%;
+
   background: #ff5cb8;
 }
 
-/* --- HOVER TIMELINE PREVIEW --- */
+
+/* ==========================================================================
+   👀 HOVER TIMELINE PREVIEW
+   ========================================================================== */
+
 .preview-box {
   position: absolute;
-  width: 190px;
-  height: 110px;
-  background: #444;
-  border-radius: 24px;
-  overflow: hidden;
   bottom: 80px;
   left: 0;
+
+  width: 190px;
+  height: 110px;
+
   display: none;
+
+  overflow: hidden;
+
+  border-radius: 24px;
+
+  background: #444;
+
   pointer-events: none;
   z-index: 999;
 }
 
+/* preview clip */
 .preview-box video {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
 }
 
-/* --- TOOLBAR CONTROLS --- */
+
+/* ==========================================================================
+   TOOLBAR CONTROLS
+   ========================================================================== */
+
 .bottom-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  margin-top: 12px;
 }
 
+/* left + right grouped controls */
 .left-controls,
 .right-controls {
   display: flex;
@@ -382,23 +511,31 @@ header {
   gap: 14px;
 }
 
+/* reusable button style */
 .control-btn,
 #fullscreenBtn {
   background: none;
   border: none;
+
   color: white;
   font-size: 22px;
+
   cursor: pointer;
 }
 
+/* current time display */
 .time-box {
+  padding: 8px 16px;
+
   background: #b34581;
   color: white;
-  padding: 8px 16px;
+
   border-radius: 999px;
+
   font-size: 15px;
 }
 
+/* hover-expand volume slider */
 .volume-wrapper {
   display: flex;
   align-items: center;
@@ -409,48 +546,79 @@ header {
   width: 0;
   opacity: 0;
   margin-left: 0;
-  transition: width 0.3s ease, opacity 0.3s ease, margin-left 0.3s ease;
+
   accent-color: #ff5cb8;
+
   cursor: pointer;
+
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease,
+    margin-left 0.3s ease;
 }
 
+/* expand slider on hover */
 .volume-wrapper:hover #volumeSlider {
   width: 90px;
   opacity: 1;
   margin-left: 10px;
 }
 
+/* playback speed dropdown */
 #speedControl {
-  border: none;
-  outline: none;
+  padding: 8px 12px;
+
   background: #ff5cb8c3;
   color: white;
-  padding: 8px 12px;
+
+  border: none;
+  outline: none;
+
   border-radius: 999px;
+
   cursor: pointer;
 }
 
+
 /* ==========================================================================
-   LOWER ENGAGEMENT ACTIONS BAR
+   ACTION BAR: i include a "FOCUS MODE" button here which adds a dark overlay and stronger shadows to the video player, 
+   so users can really immerse into the tutorial without any distractions. 
+
+   i dont add the time skip button because i believe that users can just click on the progress bar to skip to the part they want, 
+   which is more intuitive and gives them more control.
+
+   i also added some extra icons for potential features like downloading the video and liking the video to feel more engaging.
+
+
    ========================================================================== */
+
 .video-actions {
   width: 988px;
-  margin-left: 80px;
+
   margin-top: 35px;
+  margin-left: 80px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+/* focus mode button */
 .focus-btn {
   padding: 14px 20px;
-  border-radius: 10px;
-  border: 1px solid #56c545;
+
   background: #F3FC6A;
-  cursor: pointer;
-  font-size: 15px;
   color: #ff0090;
-  box-shadow: 0 5px 10px rgba(141, 214, 31, 0.813);
+
+  border: 1px solid #16a400;
+  border-radius: 10px;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 10px rgba(123, 201, 6, 0.813);
+
   transition: transform 0.2s ease;
 }
 
@@ -458,99 +626,149 @@ header {
   transform: translateY(-2px);
 }
 
+/* action icon group */
 .action-icons {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
+/* reusable action chip */
 .icon-action {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+
   padding: 8px 10px;
-  background: #F3FC6A;                 
-  border: 1px solid #2a5401;           
+
+  background: #F3FC6A;
+  color: #116838;
+
+  border: 1px solid #70c01f;
   border-radius: 12px;
-  box-shadow: 0 5px 10px rgba(141, 214, 31, 0.813);
-  color: #116838;                      
+
   text-decoration: none;
+
   cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  font-size: 14px;                     
+
+  box-shadow: 0 5px 10px rgba(141, 214, 31, 0.813);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+
+  font-size: 14px;
 }
 
+/* hover lift */
 .icon-action:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 14px rgba(141, 214, 31, 0.9);
 }
 
+/* icon sizing */
 .icon-action img,
 .icon-action .download-button,
 .icon-action .cherry-icon {
   width: 20px;
   height: 20px;
-  object-fit: contain;
+
   display: block;
-  pointer-events: none; 
-}
 
-/* ==========================================================================
-   FOCUS AMBIENT OVERLAY ENGINE
-   ========================================================================== */
-.focus-active .video-container {
-  box-shadow: 0 40px 100px rgba(0,0,0,0.45);
-}
+  object-fit: contain;
 
-.focus-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85); 
-  backdrop-filter: blur(20px);
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  z-index: 900; 
   pointer-events: none;
 }
 
+
+/* ==========================================================================
+   FOCUS MODE OVERLAY
+   ========================================================================== */
+
+/* stronger cinematic depth */
+.focus-active .video-container {
+  box-shadow: 0 40px 100px rgba(0,0,0,0.45);
+}
+.focus-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(20px);
+
+  opacity: 0;
+  pointer-events: none;
+
+  z-index: 900;
+
+  transition: opacity 0.35s ease;
+}
+
+/* overlay activated */
 .focus-active .focus-overlay {
   opacity: 1;
   pointer-events: auto;
 }
 
+
 /* ==========================================================================
-   MASCOT & DECORATIVE ANIMATIONS
+   DECORATION: all of the assets, including the cherry, the stars, speech bubbles and the girl i make in adobe illustrator, these elements are 
+   aimed to add some personality to the page, i think they make the interface more lively and engaging.
    ========================================================================== */
+
+/* mascot image */
 .cherri-image {
   position: absolute;
   top: 700px;
   right: 50px;
+
   width: 300px;
   height: auto;
 }
+
+/* speech bubble */
 .cherri-talk {
   position: absolute;
   top: 105%;
   right: 248px;
+
   width: 160px;
   height: 160px;
 
-  filter: blur(2px);
-  transform: scale(0.95);
   opacity: 0.6;
 
-  transition: filter 0.25s ease,
-              transform 0.25s ease,
-              opacity 0.25s ease;
+  filter: blur(2px);
+  transform: scale(0.95);
+
+  transition:
+    filter 0.25s ease,
+    transform 0.25s ease,
+    opacity 0.25s ease;
 }
 
-/* hover vào chính nó */
+/* this is the speech bubble that when you hover, it became clear instead of blur, which is to instruct you that the space was made for organizing the notes */
 .cherri-talk:hover {
   filter: blur(0px);
   transform: scale(1);
   opacity: 1;
 }
 
+/* floating stars
+   my intention here is purely decorative — i use these stars to add personality to the interface.
+   they don’t carry any functional meaning, they’re motion elements that make the page feel more “alive”.
+
+   for the animation, i deliberately avoid smooth, fully interpolated motion.
+   instead, i aim for a stop-motion / frame-by-frame feel.
+
+   technically, i achieve this by:
+   - using keyframe transforms (translate + rotate + scale) to create small, irregular movement
+   - applying steps(2) to intentionally break smooth easing into discrete jumps, like cut frames
+   - using alternate so the motion reverses direction, which prevents a perfectly looping rhythm
+   - offsetting animation-delay on individual stars so they don’t move in sync
+
+   for this animation effect, i have the help of Copilot to understand the code structure and syntax,
+   and then i applied it on my illustrations.
+*/
 .star {
   position: absolute;
   animation: starStopMotion 0.8s steps(2) infinite alternate;
@@ -559,129 +777,158 @@ header {
 .star-1 {
   top: 110%;
   right: 70px;
+
   width: 70px;
   height: 70px;
+
   filter: drop-shadow(0 0 6px #ff00a2);
 }
 
 .star-2 {
   top: 130%;
   right: 225px;
+
   width: 60px;
   height: 60px;
+
   filter: drop-shadow(0 0 6px #00ffb3);
+
   animation-delay: 0.3s;
 }
 
+/* intentionally low-frame stop motion effect */
 @keyframes starStopMotion {
   0% {
     transform: translateX(0px) translateY(0px) rotate(-6deg) scale(1);
   }
+
   50% {
     transform: translateX(6px) translateY(-4px) rotate(6deg) scale(1.06);
   }
+
   100% {
     transform: translateX(-4px) translateY(4px) rotate(-4deg) scale(0.96);
   }
 }
 
+
 /* ==========================================================================
-   📱 RESPONSIVE SYSTEM
+   RESPONSIVE SYSTEM
    ========================================================================== */
+
+
 /* ==========================================================================
-   📱 HỆ THỐNG RESPONSIVE TOÀN DIỆN (MEDIA QUERIES)
+   SMALL LAPTOPS + TABLETS
    ========================================================================== */
-/* 1. Dành cho màn hình Laptop nhỏ và Máy tính bảng (Dưới 1366px) */
+
 @media (max-width: 1366px) {
-  
-  /* Cấu trúc lại luồng hiển thị chính: Xếp dọc từ trên xuống dưới */
-  .workspace, main, body {
+
+  /* reorganize layout vertically for cleaner medium screens */
+  .workspace,
+  main,
+  body {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
   }
 
-  /* VIDEO NẰM TRÊN CÙNG CHIẾM TRỌN CHIỀU NGANG ĐẸP MẮT */
+  /* responsive video sizing */
   .video-container {
-    margin: 30px auto 0 auto;
     width: 90%;
-    max-width: 988px; /* Giữ độ rộng tối đa chuẩn của bạn */
+    max-width: 988px;
+
+    margin: 30px auto 0 auto;
   }
 
   .video-actions {
-    margin: 15px auto 30px auto;
     width: 90%;
     max-width: 988px;
+
+    margin: 15px auto 30px auto;
   }
 
-  /* TẠO KHUNG CHỨA PHÍA DƯỚI VIDEO ĐỂ CHIA THÀNH 2 CỘT LỚN 
-     (Nếu trong HTML chưa có khung chứa chung cho 3 phần tử này, ta tận dụng ngay lớp cha) */
+  /* create lower 2-column collage layout */
   .workspace {
     display: flex;
-    flex-direction: row; /* Trải ngang thành 2 cột */
-    flex-wrap: wrap;    /* Cho phép rớt dòng khi xuống màn hình nhỏ hơn hẳn */
+    flex-direction: row;
+    flex-wrap: wrap;
+
     justify-content: center;
     align-items: flex-start;
-    gap: 40px;          /* Khoảng cách giữa cột trái và cột phải */
+
+    gap: 40px;
+
     width: 90%;
     margin: 0 auto;
   }
 
-  /* ==========================================
-     CỘT TRÁI: MASCOT TRANG TRÍ (CHERRI IMAGE)
-     ========================================== */
+  /* mascot column */
   .cherri-image {
     position: relative;
+
     top: auto;
     left: auto;
     right: auto;
+
     display: block;
+
+    flex: 1;
+    max-width: 300px;
+
     margin: 20px 0;
-    flex: 1;            /* Tự động co giãn */
-    max-width: 300px;   /* Giới hạn kích thước mascot vừa phải */
+
     text-align: center;
   }
 
-  /* ==========================================
-     CỘT PHẢI: GOM CỤM NOTE VÀ SCRIPT (COLLAGE)
-     ========================================== */
-  /* Định hình khu vực bên phải chứa cả stack-card (Note) và card-container (Script) */
-  .stack-card, .card-container {
+  /* reset absolute positioning for responsive layout */
+  .note-stack-feature,
+  .script-container {
     position: relative;
+
     top: auto;
     left: auto;
     right: auto;
     bottom: auto;
-    transform: none;   /* Hủy bỏ mọi hiệu ứng dịch chuyển pixel cố định cũ */
+
+    transform: none;
   }
 
-  /* Khối chứa kho Sticky Note */
+  /* sticky note block */
   .stack-card {
-    margin: 20px 0;
     width: 100%;
     max-width: 450px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    margin: 20px 0;
   }
 
-  /* Khối chứa kịch bản Script */
+  /* script block */
   .card-container {
-    margin: 20px 0;
     width: 100%;
     max-width: 450px;
+
+    margin: 20px 0;
   }
 
-  /* Ẩn bớt hiệu ứng ngôi sao ở màn hình nhỏ để tránh lỗi tràn khung */
-  .star {
-    display: none; 
+  /* hide decorative stars on smaller screens to avoid overflow */
+  .star,
+  .cherri-talk {
+    display: none;
   }
 }
 
-/* 2. Dành cho màn hình Máy tính bảng và Điện thoại lớn (Dưới 768px) */
+
+/* ==========================================================================
+   TABLETS + LARGE PHONES
+   ========================================================================== */
+
 @media (max-width: 768px) {
-  /* Ẩn thanh tìm kiếm trên Mobile theo ý định ban đầu trong code cũ của bạn */
+
+  /* search bar hidden on mobile for cleaner UI */
   .search-bar {
     display: none;
   }
@@ -694,46 +941,54 @@ header {
     height: 35px;
   }
 
-  /* Chuyển đổi tỷ lệ màn hình video thành tự động co dãn theo khung hình di động */
+  /* responsive 16:9 player */
   .video-container {
     width: 95%;
     max-width: 100%;
     height: auto;
-    aspect-ratio: 16 / 9; /* Giữ nguyên tỷ lệ chuẩn 16:9 cinematic không lo bị bóp méo hình */
+
+    aspect-ratio: 16 / 9;
+
     margin-top: 20px;
-    border-radius: 15px; /* Giảm bo góc một chút trên mobile cho cân đối */
+
+    border-radius: 15px;
   }
 
-  /* Cụm tương tác thích ứng giao diện nhỏ */
+  /* stack action buttons vertically */
   .video-actions {
     width: 95%;
-    margin-top: 15px;
-    flex-direction: column; /* Xếp chồng nút bấm theo chiều dọc trên điện thoại */
+
+    flex-direction: column;
     gap: 15px;
+
+    margin-top: 15px;
   }
 
+  /* easier tap target */
   .focus-btn {
-    width: 100%; /* Nút Focus Mode chiếm toàn bộ chiều ngang để dễ bấm bằng tay */
+    width: 100%;
     text-align: center;
   }
 
+  /* spread icons nicely */
   .action-icons {
     width: 100%;
-    justify-content: space-between; /* Đẩy các icon tương tác ra 2 bên mép màn hình */
+    justify-content: space-between;
   }
 
-  /* Thu nhỏ các nút điều khiển trình phát video để không bị đè lên nhau */
+  /* smaller control dashboard */
   .video-controls {
     padding: 0 15px;
     gap: 10px;
   }
 
   .time-box {
-    font-size: 12px;
     padding: 6px 12px;
+    font-size: 12px;
   }
 
-  .control-btn, #fullscreenBtn {
+  .control-btn,
+  #fullscreenBtn {
     font-size: 18px;
   }
 
@@ -743,14 +998,20 @@ header {
   }
 }
 
-/* 3. Dành cho điện thoại cực nhỏ (Dưới 480px) */
+
+/* ==========================================================================
+   📱 EXTRA SMALL PHONES
+   ========================================================================== */
+
 @media (max-width: 480px) {
+
   .left-controls {
     gap: 8px;
   }
-  
-  /* Ẩn thanh trượt âm lượng trên điện thoại quá nhỏ vì người dùng thường dùng phím cứng của máy */
-  #volumeSlider, .volume-wrapper:hover #volumeSlider {
+
+  /* remove volume slider because mobile users usually use hardware buttons */
+  #volumeSlider,
+  .volume-wrapper:hover #volumeSlider {
     display: none;
     width: 0;
   }
