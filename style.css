@@ -1,8 +1,20 @@
+@font-face {
+  font-family: "HelveticaLocal";
+  src: url("fonts/Helvetica.ttf") format("truetype");
+  font-weight: 400; /* Hoặc 700 tùy thuộc vào file ttf này là bản Regular hay Bold */
+  font-style: normal;
+  font-display: swap;
+}
+/* Use the loaded font (falls back to system Helvetica / Arial) */
+body {
+  font-family: "HelveticaLocal", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Helvetica, sans-serif, sans-serif;
+  font-family: "HelveticaLocal", sans-serif;
 }
 
 body {
@@ -11,7 +23,7 @@ body {
     background-color: hwb(67 86% 1%); 
     
     /* Tạo chấm bi bằng gradient: màu chấm là #ccc0c0, kích thước chấm là 1.2px */
-    background-image: radial-gradient(rgb(0, 152, 76) 1.2px, transparent 1.2px);
+    background-image: radial-gradient(rgb(0, 152, 76) 1.2px, transparent 1.6px);
     
     /* Khoảng cách giữa các hàng và cột chấm là 24px */
     background-size: 24px 24px;
@@ -69,7 +81,7 @@ body {
   border-radius: 20px;
   border: 1px solid rgb(5, 168, 5);
   outline: none;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "HelveticaLocal", sans-serif;
 }
 
 /* RIGHT */
@@ -188,6 +200,7 @@ body {
     font-size: 13px;
     line-height: 1.4;
     text-align: left;
+    font-family: "HelveticaLocal", sans-serif;
     }
 
 .card-container {
@@ -210,13 +223,14 @@ body {
 /* Style cho nút bấm */
 .main-btn {
   background-color: #84cc8f;
-  border: 1px solid #000;
+  border: 1px solid #2a5401;
   border-radius: 15px;
   padding: 15px 30px;
   font-size: 18px;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(7, 90, 0, 0.3);
+  box-shadow: 0 4px 6px rgba(213, 217, 0, 0.834);
   transition: transform 0.2s;
+  color : #1c5100;
 }
 
 .main-btn:active {
@@ -238,10 +252,10 @@ body {
 }
 
 .text-wrapper p {
-  font-family: sans-serif;
+  font-family: "HelveticaLocal", sans-serif;
   line-height: 1.6;
   margin-bottom: 20px;
-  color: #333;
+  color: #264f02;
 }
 
 /* Tùy chỉnh thanh cuộn (scrollbar) cho giống ảnh */
@@ -304,7 +318,7 @@ body {
 
     border-radius: 50%;
 
-    background: rgba(255,255,255,0.12);
+    background: rgba(236, 75, 166, 0.741);
 
     backdrop-filter: blur(10px);
 
@@ -506,6 +520,7 @@ body {
     border-radius: 999px;
 
     font-size: 15px;
+    font-family: "HelveticaLocal", sans-serif;
 }
 
 /* RANGE */
@@ -630,8 +645,9 @@ body {
     cursor: pointer;
 
     font-size: 15px;
+    color: #ff0090;
 
-    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 5px 10px rgba(141, 214, 31, 0.813);
 
     transition: 0.2s ease;
 }
@@ -654,59 +670,36 @@ body {
 /* ICON BUTTONS */
 
 .icon-action {
-
-    border: none;
-
-    background: none;
-
-    cursor: pointer;
-
-    font-size: 32px;
-
-    text-decoration: none;
-
-    color: #c16da4;
-
-    position: relative;
-}
-.download-button {
-    width: 50px;
-    height: 50px;
-    transition: transform 0.2s ease;
-}
-.cherry-icon
-{
-    width: 60px;
-    height: 60px;
-    transition: transform 0.2s ease;
-}
-
-
-/* LIKE COUNT */
-
-#likeCount {
-
-    position: absolute;
-
-    top: -5px;
-    right: -3px;
-
-    background: #ff5cb8;
-
-    color: white;
-
-    font-size: 12px;
-
-    min-width: 20px;
-    height: 20px;
-
-    border-radius: 999px;
-
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
     align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: #F3FC6A;                 /* giống focus-btn */
+    border: 1px solid #2a5401;           /* cùng tông viền */
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(141, 214, 31, 0.813);
+    color: #116838;                      /* chữ / icon color */
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    font-size: 14px;                     /* nếu có text */
+}
 
-    padding: 0 6px;
+/* Hover / active */
+.icon-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 14px rgba(141, 214, 31, 0.9);
+}
+
+/* Hình trong nút giữ kích thước hợp lý */
+.icon-action img,
+.icon-action .download-button,
+.icon-action .cherry-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+    pointer-events: none; /* click vẫn do button/a xử lý */
 }
 
 .video-container {
