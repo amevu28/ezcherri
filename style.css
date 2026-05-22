@@ -823,7 +823,6 @@ header {
 
 @media (max-width: 1366px) {
 
-  /* reorganize layout vertically for cleaner medium screens */
   .workspace,
   main,
   body {
@@ -833,7 +832,6 @@ header {
     width: 100%;
   }
 
-  /* responsive video sizing */
   .video-container {
     width: 90%;
     max-width: 988px;
@@ -848,7 +846,6 @@ header {
     margin: 15px auto 30px auto;
   }
 
-  /* create lower 2-column collage layout */
   .workspace {
     display: flex;
     flex-direction: row;
@@ -863,7 +860,7 @@ header {
     margin: 0 auto;
   }
 
-  /* mascot column */
+  
   .cherri-image {
     position: relative;
 
@@ -996,11 +993,13 @@ header {
     padding: 6px 10px;
     font-size: 13px;
   }
+
 }
 
 
+
 /* ==========================================================================
-   📱 EXTRA SMALL PHONES
+   EXTRA SMALL PHONES
    ========================================================================== */
 
 @media (max-width: 480px) {
