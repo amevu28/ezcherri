@@ -210,13 +210,10 @@
 
         <div class="left-controls">
 
-          <button
-            id="playPauseBtn"
-            class="control-btn"
-            aria-pressed="false"
-          >
-            ▶
-          </button>
+          <button id="playPauseBtn" class="control-btn" aria-pressed="false">
+  <img src="icon/play-button.svg" alt="Play" class="play-icon">
+  <img src="icon/resume-button.svg" alt="Pause" class="stop-icon" style="display: none;">
+</button>
 
 
 
@@ -263,7 +260,7 @@
 
         <div class="right-controls">
 
-          <!-- i ask chat GPT on how to implement playback speed control, i applied the option value cause it comes really handy and minimal insted of make the drop down menu from scratch -->
+          <!-- i ask chat GPT on how to implement playback speed control, i applied the option value cause it comes really handy and minimal ins -->
 
           <select
             id="speedControl"
@@ -277,13 +274,17 @@
 
 
 
-          <!-- Fullscreen mode creates a more immersive viewing experience. -->
+          <!-- Fullscreen mode creates a more immersive viewing experience. ( SƯẢ) -->
 
           <button
             id="fullscreenBtn"
             aria-label="Toggle fullscreen"
           >
-            ⛶
+            <img
+              src="icon/fullscreen-button.svg"
+              alt="Fullscreen"
+              class="fullscreen-icon"
+            >
           </button>
 
         </div>

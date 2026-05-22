@@ -150,7 +150,7 @@ document.addEventListener('mousedown', (e) => {
 if (btn && content) {
     btn.addEventListener('click', () => {
         btn.classList.add('hidden');       // Hide the button
-        content.classList.remove('hidden'); // Show the kịch bản/script text
+        content.classList.remove('hidden'); 
     });
 }
 
