@@ -383,8 +383,32 @@ header {
   border-left: 28px solid white;
   border-top: 18px solid transparent;
   border-bottom: 18px solid transparent;
+
+  
 }
 
+#playPauseBtn {
+    width: 32px;         
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;          
+    background: transparent; 
+    border: none;
+    cursor: pointer;
+}
+
+#playPauseBtn .play-icon {
+    width: 34px;        
+    object-fit: contain;
+}
+
+#playPauseBtn .stop-icon {
+    width: 19px;        
+    height: 19px;
+    object-fit: contain;
+}
 
 /* ==========================================================================
    VIDEO CONTROL PANEL

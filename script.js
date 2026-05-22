@@ -166,31 +166,49 @@ if (btn && content) {
  * Plays or pauses the video and swaps the button symbols automatically
  */
 function togglePlay() {
+    // Tìm nhanh 2 thẻ ảnh nằm bên trong nút playPauseBtn
+    const playImg = playPauseBtn.querySelector('.play-icon');
+    const resumeImg = playPauseBtn.querySelector('.stop-icon');
+
     if (video.paused) {
         video.play();
-        playPauseBtn.innerHTML = '❚❚'; // Show pause icon
-        bigPlay.style.display = 'none'; // Hide the big play button in the middle
+        
+        // Chỉ thay đổi thuộc tính hiển thị của ảnh chứ không xóa class hay cấu trúc
+        if (playImg) playImg.style.display = 'none';
+        if (resumeImg) resumeImg.style.display = 'block';
+        
+        bigPlay.style.display = 'none';
     } else {
         video.pause();
-        playPauseBtn.innerHTML = '▶';  // Show play icon
-        bigPlay.style.display = 'flex'; // Show the big play button in the middle
+        
+        // Hiện lại icon Play, ẩn icon Resume đi
+        if (playImg) playImg.style.display = 'block';
+        if (resumeImg) resumeImg.style.display = 'none';
+        
+        bigPlay.style.display = 'flex';
     }
 }
 
-// Make the play/pause actions work when clicking the bar button, the middle button, or the video itself
+// Giữ nguyên các sự kiện click
 playPauseBtn.addEventListener('click', togglePlay);
 bigPlay.addEventListener('click', togglePlay);
 video.addEventListener('click', togglePlay);
 
-// Make sure icons update correctly if the video is played or paused using system keyboard shortcuts
+// Tự động cập nhật để đồng bộ khi dùng phím tắt hoặc hệ thống bên ngoài
 video.addEventListener('play', () => {
     bigPlay.classList.remove('show');
-    playPauseBtn.innerHTML = '❚❚';
+    const playImg = playPauseBtn.querySelector('.play-icon');
+    const resumeImg = playPauseBtn.querySelector('.stop-icon');
+    if (playImg) playImg.style.display = 'none';
+    if (resumeImg) resumeImg.style.display = 'block';
 });
 
 video.addEventListener('pause', () => {
     bigPlay.classList.add('show');
-    playPauseBtn.innerHTML = '▶';
+    const playImg = playPauseBtn.querySelector('.play-icon');
+    const resumeImg = playPauseBtn.querySelector('.stop-icon');
+    if (playImg) playImg.style.display = 'block';
+    if (resumeImg) resumeImg.style.display = 'none';
 });
 
 /**
